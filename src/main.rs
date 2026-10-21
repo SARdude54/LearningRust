@@ -1,21 +1,18 @@
-mod bitwise;
-
-use rust_workspace::bitwise::{clear_bit, read_bit, set_bit, toggle_bit};
+use rust_workspace::status::StatusFlags;
 
 fn main() {
-    let value: u32 = 0b0000_1010;
+    let mut status = StatusFlags::empty();
 
-    println!("Original: {:#010b}", value);
+    status.insert(StatusFlags::TX_READY);
+    status.insert(StatusFlags::RX_READY);
 
-    let result = set_bit(value, 2);
-    println!("Set bit 2: {:#010b}", result);
+    println!("Status register: {:010b}", status.bits());
 
-    let result = clear_bit(value, 1);
-    println!("Clear bit 1: {:#010b}", result);
+    if status.contains(StatusFlags::RX_READY) {
+        println!("Receiever is ready");
+    }
 
-    let result = toggle_bit(value, 3);
-    println!("Toggle bit 3: {:#010b}", result);
+    status.remove(StatusFlags::RX_READY);
 
-    let result = read_bit(value, 3);
-    println!("Read bit 3: {}", result);
+    println!("Update status: {:#010b}", status.bits());
 }
