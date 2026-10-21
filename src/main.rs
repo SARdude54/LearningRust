@@ -1,6 +1,6 @@
 mod bitwise;
 
-use bitwise::{clear_bit, read_bit, set_bit, toggle_bit};
+use rust_workspace::bitwise::{clear_bit, read_bit, set_bit, toggle_bit};
 
 fn main() {
     let value: u32 = 0b0000_1010;
